@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Страница не найдена</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      padding: 60px 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      text-align: center;
+      max-width: 500px;
+    }
+    h1 {
+      font-size: 120px;
+      color: #667eea;
+      margin-bottom: 20px;
+      line-height: 1;
+    }
+    h2 {
+      color: #333;
+      margin-bottom: 15px;
+    }
+    p {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 18px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      transition: transform 0.2s;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+    .links {
+      margin-top: 20px;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .links a {
+      color: #667eea;
+      text-decoration: none;
+    }
+    .links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>404</h1>
+    <h2>Страница не найдена</h2>
+    <p>К сожалению, запрашиваемая страница не существует.</p>
+    <a href="/" class="btn">На главную</a>
+    <div class="links">
+      <a href="/catalog">Каталог</a>
+      <a href="/cart">Корзина</a>
+      <% if (typeof user !== 'undefined' && user) { %>
+        <a href="/profile">Профиль</a>
+      <% } else { %>
+        <a href="/login">Войти</a>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>
+

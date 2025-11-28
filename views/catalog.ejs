@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Каталог</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .header h1 {
+      margin-bottom: 10px;
+    }
+    .nav {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    .nav a:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    .content {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .filters {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
+    }
+    .filters form {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+    .filters input, .filters select {
+      padding: 10px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    .filters button {
+      padding: 10px 20px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .filters button:hover {
+      background: #5568d3;
+    }
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .book-card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      background: white;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .book-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+    .book-card h3 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .book-card p {
+      color: #666;
+      margin: 5px 0;
+      font-size: 14px;
+    }
+    .book-card .add-to-cart {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s;
+    }
+    .book-card .add-to-cart:hover {
+      background: #5568d3;
+    }
+    .empty {
+      text-align: center;
+      padding: 40px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Каталог книг</h1>
+    <div class="nav">
+      <a href="/">Главная</a>
+      <a href="/catalog">Каталог</a>
+      <a href="/add-book">Добавить книгу</a>
+      <a href="/cart">Корзина</a>
+      <% if (typeof user !== 'undefined' && user) { %>
+        <a href="/profile">Профиль</a>
+        <a href="/logout">Выйти</a>
+      <% } else { %>
+        <a href="/login">Войти</a>
+        <a href="/register">Регистрация</a>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="content">
+    <% if (typeof added !== 'undefined' && added === 'success') { %>
+      <div style="background: #d4edda; color: #155724; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #c3e6cb;">
+        Книга успешно добавлена в каталог!
+      </div>
+    <% } %>
+    <div class="filters">
+      <form method="GET" action="/catalog">
+        <div>
+          <label>Тема:</label>
+          <input type="text" name="theme" placeholder="Введите тему" value="<%= theme || '' %>">
+        </div>
+        <div>
+          <label>Автор:</label>
+          <input type="text" name="author" placeholder="Имя автора" value="<%= author || '' %>">
+        </div>
+        <div>
+          <label>Жанр:</label>
+          <input type="text" name="genre" placeholder="Жанр" value="<%= genre || '' %>">
+        </div>
+        <button type="submit">Применить фильтры</button>
+        <a href="/catalog" style="padding: 10px 20px; background: #999; color: white; text-decoration: none; border-radius: 8px; display: inline-block;">Сбросить</a>
+      </form>
+    </div>
+
+    <% if (books && books.length > 0) { %>
+      <div class="books-grid">
+        <% books.forEach(book => { %>
+          <div class="book-card">
+            <h3><%= book.Title %></h3>
+            <p><strong>Тема:</strong> <%= book.Theme || '-' %></p>
+            <p><strong>Автор:</strong> <%= book.Author ? book.Author.Name : '-' %></p>
+            <p><strong>Жанр:</strong> <%= book.Genre ? book.Genre.Name : '-' %></p>
+            <p><strong>Издательство:</strong> <%= book.Publisher ? book.Publisher.Name : '-' %></p>
+            <form method="POST" action="/cart/add" style="margin-top: 15px;">
+              <input type="hidden" name="bookId" value="<%= book.BookID %>">
+              <button type="submit" class="add-to-cart">Добавить в корзину</button>
+            </form>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <div class="empty">
+        <p>Книги не найдены</p>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>
+

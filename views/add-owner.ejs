@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить владельца</title>
+</head>
+<body>
+    <h1>Добавить владельца</h1>
+    
+    <form action="/add-owner" method="POST">
+        <div>
+            <label for="imya">Имя:</label>
+            <input type="text" id="imya" name="Imya" required>
+        </div>
+        
+        <div>
+            <label for="otch">Отчество:</label>
+            <input type="text" id="otch" name="Otchestvo">
+        </div>
+        
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <button onclick="window.location.href='/'">Назад</button>
+</body>
+</html>

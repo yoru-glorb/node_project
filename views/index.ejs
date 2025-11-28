@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Книжный магазин</title>
+  <style>
+    body{font-family: Arial, sans-serif; padding:20px; background-color: rgb(255, 255, 255)}
+    .buttons button{margin:4px;padding:8px 12px; background-color: rgb(226, 41, 41); border: none; border-radius: 20px; color: white;}
+    .book{border:1px solid #ddd;padding:8px;margin:6px 0;border-radius:6px}
+    form.inline{display:inline-block;margin-right:10px;}
+    .input_vch{padding: 0.5rem; border-radius: 20px; color: rgb(255, 255, 255); background-color: rgb(226, 41, 41); border-color: palevioletred;}
+    .aprove{ padding: 0.5rem; background-color: black; color: white; transition: all 0.3s ease;}
+    .aprove:hover{background-color: aliceblue; color: black;}
+    .resset{ padding: 0.5rem; background-color: white; color: black; transition: all 0.3s ease; }
+    .resset:hover{background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);}
+    ::placeholder{color: #ddd;}
+    
+
+  </style>
+</head>
+<body>
+  <h1>Книжный магазин</h1>
+  <div class="buttons">
+    <button onclick="window.location.href='/add-book'">Добавить книгу</button>
+    <button onclick="window.location.href='/add-author'">Добавить автора</button>
+    <button onclick="window.location.href='/add-genre'">Добавить жанр</button>
+    <button onclick="window.location.href='/add-publisher'">Добавить издательство</button>
+  </div>
+
+  <h2>Фильтр по теме</h2>
+  <form method="GET" action="/" class="inline">
+    <input class="input_vch" name="theme" placeholder="Введите тему" value="<%= theme || '' %>"/>
+    <button class="aprove" type="submit">Применить</button>
+    <button class="resset" type="button" onclick="window.location.href='/'">Сбросить</button>
+  </form>
+
+  <h2>Книги</h2>
+  <% if (books.length===0) { %>
+    <p>Книг не найдено.</p>
+  <% } else { %>
+    <% books.forEach(b => { %>
+      <div class="book">
+        <strong><%= b.Title %></strong> — тема: <%= b.Theme || '-' %><br/>
+        автор: <%= b.Author ? b.Author.Name : '-' %> | жанр: <%= b.Genre ? b.Genre.Name : '-' %> | издательство: <%= b.Publisher ? b.Publisher.Name : '-' %>
+      </div>
+    <% }) %>
+  <% } %>
+
+</body>
+</html>

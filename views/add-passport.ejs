@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить паспорт</title>
+</head>
+<body>
+    <h1>Добавить паспорт</h1>
+    
+    <form action="/add-passport" method="POST">
+        <div>
+            <label for="nomer">Номер:</label>
+            <input type="text" id="nomer" name="Nomer" required>
+        </div>
+        
+        <div>
+            <label for="seriya">Серия:</label>
+            <input type="text" id="seriya" name="Seriya">
+        </div>
+        
+        <div>
+            <label for="date">Дата рождения:</label>
+            <input type="date" id="date" name="Data_rojdeniya">
+        </div>
+
+        <div>
+            <label for="owner">Владелец:</label>
+            <select id="owner" name="VladeletsID">
+                <option value="">-- выбрать --</option>
+                <% (owners || []).forEach(o => { %>
+                    <option value="<%= o.VladeletsID %>"><%= o.Imya %> <%= o.Otchestvo || '' %></option>
+                <% }) %>
+            </select>
+        </div>
+        
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <button onclick="window.location.href='/'">Назад</button>
+</body>
+</html>

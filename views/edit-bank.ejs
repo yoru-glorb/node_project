@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Изменить банковские реквизиты</title>
+</head>
+<body>
+    <h1>Изменить банковские реквизиты</h1>
+    
+    <form action="/edit-bank/<%= bank.BankDannieID %>" method="POST">
+        <div>
+            <label for="bank">Банк:</label>
+            <input type="text" id="bank" name="Bank" required value="<%= bank.Bank %>">
+        </div>
+        
+        <div>
+            <label for="valuta">Валюта:</label>
+            <input type="text" id="valuta" name="Valuta" value="<%= bank.Valuta %>">
+        </div>
+
+        <div>
+            <label for="owner">Владелец:</label>
+            <select id="owner" name="VladeletsID">
+                <option value="">-- выбрать --</option>
+                <% (owners || []).forEach(o => { %>
+                    <option value="<%= o.VladeletsID %>" <%= bank.VladeletsID == o.VladeletsID ? 'selected' : '' %>><%= o.Imya %> <%= o.Otchestvo || '' %></option>
+                <% }) %>
+            </select>
+        </div>
+        
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <button onclick="window.location.href='/'">Назад</button>
+</body>
+</html>

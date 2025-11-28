@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить семью</title>
+</head>
+<body>
+    <h1>Добавить семью</h1>
+    
+    <form action="/add-family" method="POST">
+        <div>
+            <label for="DoxodRasxodID">Выберите операцию:</label>
+            <select id="DoxodRasxodID" name="DoxodRasxodID" required>
+                <% operations.forEach(operation => { %>
+                    <option value="<%= operation.FinOperationID %>">
+                        <%= operation.Summa %> (<%= operation.Category %>)
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+        
+        <div>
+            <label for="PortfolioID">Выберите портфель:</label>
+            <select id="PortfolioID" name="PortfolioID" required>
+                <% portfolios.forEach(portfolio => { %>
+                    <option value="<%= portfolio.InvestPortfolioID %>">
+                        <%= portfolio.Nazvanie %> (<%= portfolio.Stoimost %>)
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+        
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <button onclick="window.location.href='/'">Назад</button>
+</body>
+</html>

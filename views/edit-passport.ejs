@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Изменить паспорт</title>
+</head>
+<body>
+    <h1>Изменить паспорт</h1>
+    
+    <form action="/edit-passport/<%= passport.PaspDanID %>" method="POST">
+        <div>
+            <label for="nomer">Номер:</label>
+            <input type="text" id="nomer" name="Nomer" required value="<%= passport.Nomer %>">
+        </div>
+        
+        <div>
+            <label for="seriya">Серия:</label>
+            <input type="text" id="seriya" name="Seriya" value="<%= passport.Seriya %>">
+        </div>
+        
+        <div>
+            <label for="date">Дата рождения:</label>
+            <input type="date" id="date" name="Data_rojdeniya" value="<%= passport.Data_rojdeniya ? new Date(passport.Data_rojdeniya).toISOString().slice(0,10) : '' %>">
+        </div>
+
+        <div>
+            <label for="owner">Владелец:</label>
+            <select id="owner" name="VladeletsID">
+                <option value="">-- выбрать --</option>
+                <% (owners || []).forEach(o => { %>
+                    <option value="<%= o.VladeletsID %>" <%= passport.VladeletsID == o.VladeletsID ? 'selected' : '' %>><%= o.Imya %> <%= o.Otchestvo || '' %></option>
+                <% }) %>
+            </select>
+        </div>
+        
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <button onclick="window.location.href='/'">Назад</button>
+</body>
+</html>

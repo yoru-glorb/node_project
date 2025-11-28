@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Профиль</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .header h1 {
+      margin-bottom: 10px;
+    }
+    .nav {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    .nav a:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    .content {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .profile-info {
+      margin-bottom: 30px;
+    }
+    .info-item {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    .info-item:last-child {
+      border-bottom: none;
+    }
+    .info-label {
+      font-weight: bold;
+      color: #667eea;
+      margin-bottom: 5px;
+    }
+    .info-value {
+      color: #333;
+      font-size: 16px;
+    }
+    .btn {
+      padding: 12px 24px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn:hover {
+      background: #5568d3;
+    }
+    .btn-danger {
+      background: #e74c3c;
+    }
+    .btn-danger:hover {
+      background: #c0392b;
+    }
+    .actions {
+      margin-top: 30px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Профиль пользователя</h1>
+    <div class="nav">
+      <a href="/">Главная</a>
+      <a href="/catalog">Каталог</a>
+      <a href="/add-book">Добавить книгу</a>
+      <a href="/cart">Корзина</a>
+      <a href="/profile">Профиль</a>
+      <a href="/logout">Выйти</a>
+    </div>
+  </div>
+
+  <div class="content">
+    <% if (typeof user !== 'undefined' && user) { %>
+      <div class="profile-info">
+        <div class="info-item">
+          <div class="info-label">Username:</div>
+          <div class="info-value"><%= user.Username %></div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Email:</div>
+          <div class="info-value"><%= user.Email %></div>
+        </div>
+        <% if (user.FirstName) { %>
+          <div class="info-item">
+            <div class="info-label">Имя:</div>
+            <div class="info-value"><%= user.FirstName %></div>
+          </div>
+        <% } %>
+        <% if (user.LastName) { %>
+          <div class="info-item">
+            <div class="info-label">Фамилия:</div>
+            <div class="info-value"><%= user.LastName %></div>
+          </div>
+        <% } %>
+        <% if (user.Phone) { %>
+          <div class="info-item">
+            <div class="info-label">Телефон:</div>
+            <div class="info-value"><%= user.Phone %></div>
+          </div>
+        <% } %>
+      </div>
+      <div class="actions">
+        <a href="/" class="btn">На главную</a>
+        <a href="/catalog" class="btn">Каталог</a>
+      </div>
+    <% } else { %>
+      <p>Вы не авторизованы. <a href="/login">Войдите</a> или <a href="/register">зарегистрируйтесь</a>.</p>
+    <% } %>
+  </div>
+</body>
+</html>
+
